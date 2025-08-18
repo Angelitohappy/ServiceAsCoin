@@ -37,6 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'corsheaders',
+    'api'
 ]
 
 MIDDLEWARE = [
@@ -47,8 +50,25 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
 ]
 
+# Permitir todos los dominios (solo para desarrollo)
+CORS_ALLOW_ALL_ORIGINS = True
+
+# O permitir solo dominios específicos (recomendado para producción)
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:5173",  # React
+]
+
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ]
+}
 ROOT_URLCONF = 'myAppBackend.urls'
 
 TEMPLATES = [
