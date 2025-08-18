@@ -1,4 +1,5 @@
-
+import { useEffect, useState } from "react";
+import { getTasks } from "./service/apiConfig";
 
 function TaskList() {
   const [tasks, setTasks] = useState([]);
@@ -6,10 +7,10 @@ function TaskList() {
   useEffect(() => {
     const fetchTasks = async () => {
       try {
-        const response = await axios.get('http://127.0.0.1:8000/api/tasks/');
+        const response = await getTasks();
         setTasks(response.data);
       } catch (error) {
-        console.error('Error fetching tasks:', error);
+        console.error("Error fetching tasks:", error);
       }
     };
     fetchTasks();
@@ -19,10 +20,8 @@ function TaskList() {
     <div>
       <h2>Tasks</h2>
       <ul>
-        {tasks.map(task => (
-          <li key={task.id}>
-            {task.title} - {task.completed ? 'Completed' : 'Pending'}
-          </li>
+        {tasks.map((task) => (
+          <li key={task.id}>{task.title}</li>
         ))}
       </ul>
     </div>
